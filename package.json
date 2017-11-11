@@ -4,7 +4,8 @@
   "description": "![cf](https://i.imgur.com/7v5ASc8.png) Lab 07: Vanilla HTTP Server ======",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/namgungssi/lab-07-http-server/issues"
   },
-  "homepage": "https://github.com/namgungssi/lab-07-http-server#readme"
+  "homepage": "https://github.com/namgungssi/lab-07-http-server#readme",
+  "devDependencies": {
+    "jest-cli": "^21.2.1"
+  },
+  "dependencies": {
+    "mongodb": "^2.2.33"
+  }
 }
