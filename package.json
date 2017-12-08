@@ -4,7 +4,7 @@
   "description": "![cf](https://i.imgur.com/7v5ASc8.png) Lab 07: Vanilla HTTP Server ======",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest -i",
     "start": "node server.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "jest-cli": "^21.2.1"
   },
   "dependencies": {
+    "express": "^4.16.2",
     "mongodb": "^2.2.33"
   }
 }

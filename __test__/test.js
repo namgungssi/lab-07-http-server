@@ -21,7 +21,7 @@ describe ('http server', function () {
     server.stop (() => done ());
   });
 
-  it ('should respond to a GET request', function (done)) {
+  it ('should respond to a GET request', function(done) {
     let html = fs.readFileSync ('./lib/data/cowsay.html');
     request
     .get (host + '/')
@@ -33,7 +33,7 @@ describe ('http server', function () {
     });
   });
 
-  it ('should execute param', function (done)) {
+  it ('should execute param', function(done) {
     request
     .get (host + '/cowsay?text=error')
     .end ((err, res) => {
@@ -44,7 +44,7 @@ describe ('http server', function () {
     });
   });
 
-  it ('should handle 404 on a bad url', function (done)) {
+  it ('should handle 404 on a bad url', function(done) {
     request
     .get (host + '/error')
     .end ((err, res) => {
