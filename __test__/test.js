@@ -1,58 +1,79 @@
 'use strict';
 
 
-const fs = require ('fs');
-const expect = require ('expect');
-const cowsay = require ('cowsay');
-const request = require ('superagent');
-const server = require ('./_server.js');
+
+const expect = require('expect');
+const request = require('superagent');
+const cowsay = require('cowsay');
+const server = require('../_server');
+const PORT = 5555;
 const host = 'localhost:' + PORT;
 
 
-describe ('http server', function () {
-  before ((done) => {
-    server.start (process.env.PORT, () => {
-      console.log ('server up at ', process.env.PORT);
-      done ();
-    });
+
+describe('our first http server', function() {
+  before(function(done) {
+    server.listen(PORT, done);
   });
 
-  after ((done) => {
-    server.stop (() => done ());
+  after(function(done) {
+    server.close(done);
   });
 
-  it ('should respond to a GET request', function(done) {
-    let html = fs.readFileSync ('./lib/data/cowsay.html');
+  it('should GET request', function(done) {
     request
-    .get (host + '/')
-    .end ((err, res) => {
-      expect (err).toBe (null);
-      expect (res.status).toEqual (200);
-      expect (res.text).toBe ('http request');
-      done ();
-    });
+      .get(host + '/')
+      .end((err, res) => {
+        expect(err).toBe(null);
+        expect(res.text).toBe(cowsay.say({text: 'hello', f: 'brian'}));
+        done();
+      });
   });
 
-  it ('should execute param', function(done) {
+
+  it('should process query params', function(done) {
     request
-    .get (host + '/cowsay?text=error')
-    .end ((err, res) => {
-      expect (err).toBe (null);
-      expect (res.status).toEqual (200);
-      expect (res.text).to.have.string ('mooo');
-      done ();
-    });
+      .get(host + '/cowsay?text=test')
+      .end((err, res) => {
+        expect(err).toBe(null);
+        expect(res.text).toBe(cowsay.say({text: 'test'}));
+        done();
+      });
   });
 
-  it ('should handle 404 on a bad url', function(done) {
+  it('should process json', function(done) {
     request
-    .get (host + '/error')
-    .end ((err, res) => {
-      expect (err).not.be.null;
-      expect (res.status).toEqual (404);
-      expect (res.text).toBe.string ('error cannot find');
-      done ();
-    });
-  }
-};
+      .post(host + '/cowsay')
+      .send({text: 'good keep going'})
+      .end((err, res) => {
+        expect(err).toBe(null);
+
+        expect(res.text).toBe('json success');
+        done();
+      });
+  });
+
+  it('should note error bad JSON', function(done) {
+    request
+      .post(host + '/cowsay')
+      .send('{"error":"json')
+      .end((err, res) => {
+        expect(err).not.toBe(null);
+        expect(err.message).toBe('error request');
+        expect(res.text).toBe('json error');
+        done();
+      });
+  });
+
+  it('should error 400 on bad url', function(done) {
+    request
+      .get(host + '/doesnotexist')
+      .end((err, res) => {
+        expect(err).not.toBe(null);
+        expect(err.message).toBe('error request');
+        expect(res.text).toBe('error request');
+
+        done();
+      });
+  });
 });
