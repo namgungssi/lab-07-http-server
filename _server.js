@@ -30,7 +30,7 @@ const server = module.exports = http.createServer((req, res) => {
       let params = req.url.query;
       if (!params.text) {
         res.statusCode = 400;
-        res.write(cowsay.say({text: 'Say something!', f: 'Mother'}));
+        res.write(cowsay.say({text: 'Error', f: 'Parse'}));
         res.end();
       } else {
           sendResponse(res, 200, cowsay.say({text: params.text}));
