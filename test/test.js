@@ -1,13 +1,16 @@
 'use strict';
 
+
+
 const expect = require('expect');
 const request = require('superagent');
 const cowsay = require('cowsay');
-
 const server = require('../_server');
 
 const PORT = 5555;
 const host = 'localhost:' + PORT;
+
+
 
 describe('our first http server', function() {
   before(function(done) {
@@ -18,12 +21,13 @@ describe('our first http server', function() {
     server.close(done);
   });
 
+
   it('should respond to a get request', function(done) {
     request
       .get(host + '/')
       .end((err, res) => {
         expect(err).toBe(null);
-        expect(res.text).toBe(cowsay.say({text: 'Hi!', f: 'Ghostbusters'}));
+        expect(res.text).toBe(cowsay.say({text: 'Hi!', f: 'Brian'}));
         done();
       });
   });
