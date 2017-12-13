@@ -1,27 +1,3 @@
-![cf](https://i.imgur.com/7v5ASc8.png) Lab 07: Vanilla HTTP Server
-======
-
-## Submission Instructions
-* Work in a fork of this repository
-* Work in a branch on your fork
-* Write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-susan`
-* Open a pull request to this repository
-* Submit on canvas a question and observation, how long you spent, and a link to your pull request
-
-## Configuration
-Configure the root of your repository with the following files and directories. Thoughfully name and organize any aditional configuration or module files.
-* **README.md** - contains documentation
-* **.env** - contains env variables (should be git ignored)
-* **.gitignore** - contains a [robust](http://gitignore.io) `.gitignore` file
-* **.eslintrc** - contains the course linter configuratoin
-* **.eslintignore** - contains the course linter ignore configuration
-* **package.json** - contains npm package config
-  * create a `lint` script for running eslint
-  * create a `test` script for running tests
-  * create a `start` script for running your server
-* **lib/** - contains module definitions
-* **\_\_test\_\_/** - contains unit tests
-
 ## Feature Tasks
 For this assignment you will be building a HTTP server.
 #### Body Parser Module
@@ -96,7 +72,7 @@ When a client makes a POST request to /api/cowsay it should send JSON that inclu
 
 
 ## Bonus
-**1pts:** add the ability to change the cowfile on GET /cowsay, GET /api/cowsay, and POST /api/cowsay - **ex: dragon, sheep, etc**
+**1pts:** add the ability to change the cowfile on GET /cowsay, GET /api/cowsay, and POST /api/cowsay - **ex: dragon**
 
 
 ## Test
