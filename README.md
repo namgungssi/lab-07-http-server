@@ -97,3 +97,7 @@ When a client makes a POST request to /api/cowsay it should send JSON that inclu
 
 ## Bonus
 **1pts:** add the ability to change the cowfile on GET /cowsay, GET /api/cowsay, and POST /api/cowsay - **ex: dragon, sheep, etc**
+
+
+## Test
+- in the command line (npm test) to start testing with Mocha

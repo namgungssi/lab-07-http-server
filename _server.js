@@ -6,6 +6,7 @@ const http = require('http');
 const url = require('url');
 const querystring = require('querystring');
 const cowsay = require('cowsay');
+
 // const bodyParser = require('body-parser');
 
 
@@ -25,12 +26,12 @@ const server = module.exports = http.createServer((req, res) => {
 
 
   if (req.method === 'GET' && req.url.pathname === '/') {
-      sendResponse(res, 200, cowsay.say({text: 'Hi!', f: 'Brian'}));
+      sendResponse(res, 200, cowsay.say({text: 'Hi!', f: 'Ghostbusters'}));
     } else if (req.method === 'GET' && req.url.pathname === '/cowsay') {
       let params = req.url.query;
       if (!params.text) {
         res.statusCode = 400;
-        res.write(cowsay.say({text: 'Error', f: 'Parse'}));
+        res.write(cowsay.say({text: 'I need something to say!', f: 'dragon'}));
         res.end();
       } else {
           sendResponse(res, 200, cowsay.say({text: params.text}));
@@ -51,7 +52,7 @@ const server = module.exports = http.createServer((req, res) => {
           }
           console.log(json);
           // sendResponse(res, 200, cowsay.say({ text: body }));
-          sendResponse(res, 200, ('got the json'));
+          sendResponse(res, 200, ('successful json'));
         });
     } else {
       sendResponse(res, 400, 'bad request');
