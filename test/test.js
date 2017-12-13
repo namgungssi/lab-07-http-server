@@ -48,7 +48,7 @@ describe('http server', function() {
       .end((err, res) => {
         expect(err).toBe(null);
 
-        expect(res.text).toBe('got the json');
+        expect(res.text).toBe('successful json');
         done();
       });
   });
