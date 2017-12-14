@@ -26,35 +26,42 @@ const server = module.exports = http.createServer((req, res) => {
 
 
   if (req.method === 'GET' && req.url.pathname === '/') {
-      sendResponse(res, 200, cowsay.say({text: 'Hi!', f: 'Ghostbusters'}));
-    } else if (req.method === 'GET' && req.url.pathname === '/cowsay') {
-      let params = req.url.query;
-      if (!params.text) {
-        res.statusCode = 400;
-        res.write(cowsay.say({text: 'I need something to say!', f: 'dragon'}));
-        res.end();
-      } else {
-          sendResponse(res, 200, cowsay.say({text: params.text}));
-      }
-    } else if (req.method === 'POST' && req.url.pathname === '/cowsay') {
-      let body = '';
-      req.on('data', function(data) {
-        body += data.toString();
-        });
+    sendResponse(res, 200, cowsay.say({text: 'Hi!', f: 'Ghostbusters'}));
 
-        req.on('end', function() {
-          let json;
-          try {
-              json = JSON.parse(body);
-          } catch(e) {
+  } else if (req.method === 'GET' && req.url.pathname === '/cowsay') {
 
-            return sendResponse(res, 400, 'bad json!');
-          }
-          console.log(json);
-          // sendResponse(res, 200, cowsay.say({ text: body }));
-          sendResponse(res, 200, ('successful json'));
-        });
+    let params = req.url.query;
+
+    if (!params.text) {
+      res.statusCode = 400;
+      res.write(cowsay.say({text: 'I need something to say!', f: 'dragon'}));
+      res.end();
+
     } else {
-      sendResponse(res, 400, 'bad request');
+      sendResponse(res, 200, cowsay.say({text: params.text}));
     }
+
+  } else if (req.method === 'POST' && req.url.pathname === '/cowsay') {
+    let body = '';
+    req.on('data', function(data) {
+      body += data.toString();
+    });
+
+    req.on('end', function() {
+      let json;
+      try {
+        json = JSON.parse(body);
+      } catch(e) {
+
+        return sendResponse(res, 400, 'bad json!');
+      }
+      
+      console.log(json);
+      // sendResponse(res, 200, cowsay.say({ text: body }));
+      sendResponse(res, 200, ('successful json'));
+    });
+
+  } else {
+    sendResponse(res, 400, 'bad request');
+  }
 });
